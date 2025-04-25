@@ -5,11 +5,12 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Kiosk {
-    List<MenuItem> menuItems = new ArrayList<>();
+    private List<MenuItem> menuItems = new ArrayList<>();
 
     public Kiosk(List<MenuItem> menuItems){
         this.menuItems = menuItems;
     }
+
     public void start(){
         Scanner scanner = new Scanner(System.in);
         while(true){
