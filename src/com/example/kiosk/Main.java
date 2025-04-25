@@ -12,25 +12,7 @@ public class Main {
         menuItems.add(new MenuItem("CheeseBurger", 6.9, "포테이토 번과 비프패티, 치즈가 토핑된 치즈버거"));
         menuItems.add(new MenuItem("Hamburger", 5.4, "비프패티를 기반으로 야채가 들어간 기본버거"));
 
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("[ SHAKESHACK MENU ]");
-        for (int i = 0; i < menuItems.size(); i++){
-            MenuItem menuItem = menuItems.get(i);
-            System.out.println(i+1 + "." + menuItem.getName() + " | W " + menuItem.getPrice() + " | " + menuItem.getDetails());
-        }
-        System.out.println("0. 종료            | 종료   |");
-        System.out.println("숫자를 입력하세요");
-        int i = scanner.nextInt();
-        if(i > 0 && i <= menuItems.size()){
-            MenuItem menuItem = menuItems.get(i);
-            System.out.println("선택한 메뉴 : "+ menuItem.getName() + " | W " + menuItem.getPrice() + " | " + menuItem.getDetails());
-        }
-        else if(i==0){
-            System.out.println("프로그램을 종료합니다.");
-        }
-        else{
-            System.out.println("잘못 입력했습니다.");
-        }
+        Kiosk kiosk = new Kiosk(menuItems);
+        kiosk.start();
     }
 }
