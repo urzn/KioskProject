@@ -18,7 +18,7 @@ public class Kiosk implements PrintMenu{
 
     public void start(){
         Scanner scanner = new Scanner(System.in);
-        int menuNum, menuItemNum, cartAddNum, orderNum, discountNum;
+        int menuNum, menuItemNum, cartAddNum, orderNum, deleteNum, discountNum;
         double price;
         Menu menu;
         List<MenuItem> menuItems;
@@ -102,7 +102,7 @@ public class Kiosk implements PrintMenu{
                     printMenuList(cart.getCart());
                     System.out.println("\n[ Total ]");
                     System.out.println("W " + String.format("%.1f",cart.getPrice()));
-                    System.out.println("\n1. 주문 2. 메뉴판");
+                    System.out.println("\n1. 주문하기\n2. 주문 삭제하기\n3. 메뉴판으로 돌아가기");
                     try{
                         orderNum = scanner.nextInt();
                         if(orderNum == 1){
@@ -133,6 +133,33 @@ public class Kiosk implements PrintMenu{
                             return;
                         }
                         else if(orderNum == 2){
+                            System.out.println("\n삭제할 메뉴의 번호를 입력해주세요. (0으로 뒤로가기)");
+                            printMenuList(cart.getCart());
+                            try{
+                                deleteNum = scanner.nextInt();
+                                if(deleteNum > cart.getCart().size() || deleteNum<0){
+                                    System.out.println("잘못된 입력입니다.");
+                                    break;
+                                }
+                                else if(deleteNum == 0){
+                                    break;
+                                }
+                                else{
+                                    cart.deleteItemFromCart(cart.getCart().get(deleteNum-1));
+                                    System.out.println(deleteNum + "번째 메뉴가 장바구니에서 삭제되었습니다.\n");
+                                    if (cart.getCart().isEmpty()) {
+                                        System.out.println("장바구니가 비었습니다.");
+                                        break;
+                                    }
+                                }
+                            }catch(InputMismatchException e){
+                                System.out.println("숫자만 입력해주세요.");
+                                scanner.nextLine();
+                                break;
+                            }
+
+                        }
+                        else if(orderNum == 3){
                             break;
                         }
                         else{
