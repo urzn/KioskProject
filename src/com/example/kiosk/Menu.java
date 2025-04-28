@@ -2,10 +2,8 @@ package com.example.kiosk;
 
 import java.util.*;
 
-public class Menu {
-    Map<Category, List<MenuItem>> menuMap = new HashMap<>();
+public class Menu implements PrintMenu{
     private List<MenuItem> menuItems = new ArrayList<>();
-    private String menuName;
     private final Category category;
 
     public Menu (Category category, List<MenuItem> menuItems){
@@ -14,8 +12,7 @@ public class Menu {
     }
 
     public String getCategories(){
-        menuName = category.getLabel();
-        return menuName;
+        return category.getLabel();
     }
 
     public List<MenuItem> getMenuItems(){
