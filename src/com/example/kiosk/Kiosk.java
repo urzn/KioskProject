@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class Kiosk implements PrintMenu{
     private Menu menu;
     private final Category[] categories = Category.values();
+    private final DiscountRate[] discountRates = DiscountRate.values();
     private List<Menu> menuList = new ArrayList<>();
     public Kiosk(List<Menu> menuList){
         this.menuList = menuList;
@@ -17,7 +18,8 @@ public class Kiosk implements PrintMenu{
 
     public void start(){
         Scanner scanner = new Scanner(System.in);
-        int menuNum, menuItemNum, cartAddNum, orderNum;
+        int menuNum, menuItemNum, cartAddNum, orderNum, discountNum;
+        double price;
         Menu menu;
         List<MenuItem> menuItems;
         MenuItem menuItem;
@@ -99,13 +101,35 @@ public class Kiosk implements PrintMenu{
                     System.out.println("[ Orders ]");
                     printMenuList(cart.getCart());
                     System.out.println("\n[ Total ]");
-                    System.out.println("W " + cart.getPrice());
+                    System.out.println("W " + String.format("%.1f",cart.getPrice()));
                     System.out.println("\n1. 주문 2. 메뉴판");
                     try{
                         orderNum = scanner.nextInt();
                         if(orderNum == 1){
+                            System.out.println("할인 정보를 입력해주세요.");
+                            System.out.print("1. " + DiscountRate.VETERAN.getLabel());
+                            System.out.println(" : " + DiscountRate.VETERAN.getDiscountRate() + "%");
+                            System.out.print("2. " + DiscountRate.SOLDIER.getLabel());
+                            System.out.println(" : " + DiscountRate.SOLDIER.getDiscountRate() + "%");
+                            System.out.print("3. " + DiscountRate.STUDENT.getLabel());
+                            System.out.println(" : " + DiscountRate.STUDENT.getDiscountRate() + "%");
+                            System.out.print("4. " + DiscountRate.GENERAL.getLabel());
+                            System.out.println(" : " + DiscountRate.GENERAL.getDiscountRate() + "%");
+                            try{
+                                discountNum = scanner.nextInt();
+                                if(discountNum < 1 || discountNum > 4){
+                                    System.out.println("잘못된 입력입니다.");
+                                    break;
+                                }
+                                price = cart.getPrice()* 0.01 *
+                                        (100 - discountRates[discountNum-1].getDiscountRate());
+                            } catch(InputMismatchException e){
+                                System.out.println("숫자만 입력해주세요.");
+                                scanner.nextLine();
+                                break;
+                            }
                             System.out.println("주문이 완료되었습니다.");
-                            System.out.println("금액은 W "+ String.format("%.1f",cart.getPrice())+" 입니다.");
+                            System.out.println("금액은 W "+ String.format("%.2f",price)+" 입니다.");
                             return;
                         }
                         else if(orderNum == 2){
