@@ -5,10 +5,9 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-public class Kiosk {
+public class Kiosk implements PrintMenu{
     private Menu menu;
-    private List<MenuItem> menuItems = new ArrayList<>();
-    private List<String> categories = new ArrayList<>();
+    private final Category[] categories = Category.values();
     private List<Menu> menuList = new ArrayList<>();
     public Kiosk(List<Menu> menuList){
         this.menuList = menuList;
@@ -18,6 +17,7 @@ public class Kiosk {
         Scanner scanner = new Scanner(System.in);
         int menuNum, menuItemNum;
         Menu menu;
+        List<MenuItem> menuItems = new ArrayList<>();
         MenuItem menuItem;
 
         while(true){
@@ -36,13 +36,10 @@ public class Kiosk {
             }
 
             if(menuNum == 1 || menuNum ==2 || menuNum == 3){
-                System.out.println("[ Burgers Menu ]");
+                System.out.println("[ " + categories[menuNum-1].getLabel() + " Menu ]");
                 menu = menuList.get(menuNum-1);
                 menuItems = menu.getMenuItems();
-                for(int i = 0; i<menuItems.size();i++){
-                    System.out.println((i+1) + ". "+menuItems.get(i).getName()+ " | W " + menuItems.get(i).getPrice()
-                            + " | " + menuItems.get(i).getDetails());
-                }
+                printMenuList(menuItems);
                 System.out.println("0. 뒤로가기");
 
                 while(true){
@@ -56,7 +53,7 @@ public class Kiosk {
                     if(menuItemNum>=1 && menuItemNum <= menuItems.size()){
                         menuItem = menuItems.get(menuItemNum-1);
                         System.out.print("선택한 메뉴 : ");
-                        System.out.println(menuItem.getName()+ " | W " + menuItem.getPrice() + " | " + menuItem.getDetails());
+                        printMenuItem(menuItem);
                     }
                     else if(menuItemNum == 0 ){
                         System.out.println("메인 메뉴로 돌아갑니다.");
