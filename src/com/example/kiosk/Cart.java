@@ -13,6 +13,9 @@ public class Cart implements PrintMenu{
     public List<MenuItem> getCart(){
         return cartItems;
     }
+    public void deleteItemFromCart(MenuItem cartItem){
+        cartItems.removeIf(item -> item.getName().equals(cartItem.getName()));
+    }
     public double getPrice(){
         double price = 0;
         for(MenuItem menuItem : cartItems){
