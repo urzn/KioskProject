@@ -30,6 +30,12 @@ public class Kiosk implements PrintMenu{
             }
             System.out.println("0. 종료");
 
+            if(!cart.getCart().isEmpty()) {
+                System.out.println("\n[ ORDER MENU ]");
+                System.out.println("4. Orders | 장바구니를 확인 후 주문합니다.");
+                System.out.println("5. Cancel | 진행중인 주문을 취소합니다.");
+            }
+
             try{
                 menuNum = scanner.nextInt();
             } catch(InputMismatchException e){
@@ -88,7 +94,38 @@ public class Kiosk implements PrintMenu{
                 } else if (menuNum == 0) {
                     System.out.println("프로그램을 종료합니다.");
                     return;
-                } else {
+                } else if (menuNum == 4 && !cart.getCart().isEmpty()){
+                    System.out.println("아래와 같이 주문 하시겠습니까?\n");
+                    System.out.println("[ Orders ]");
+                    printMenuList(cart.getCart());
+                    System.out.println("\n[ Total ]");
+                    System.out.println("W " + cart.getPrice());
+                    System.out.println("\n1. 주문 2. 메뉴판");
+                    try{
+                        orderNum = scanner.nextInt();
+                        if(orderNum == 1){
+                            System.out.println("주문이 완료되었습니다.");
+                            System.out.println("금액은 W "+ String.format("%.1f",cart.getPrice())+" 입니다.");
+                            return;
+                        }
+                        else if(orderNum == 2){
+                            break;
+                        }
+                        else{
+                            System.out.println("잘못된 입력입니다.");
+                            break;
+                        }
+                    } catch(InputMismatchException e){
+                        System.out.println("숫자만 입력해주세요.");
+                        scanner.nextLine();
+                        break;
+                    }
+
+                } else if (menuNum == 5 && !cart.getCart().isEmpty()){
+                    System.out.println("프로그램을 종료합니다.");
+                    return;
+                }
+                else {
                     System.out.println("잘못된 입력입니다.");
                     break;
                 }
