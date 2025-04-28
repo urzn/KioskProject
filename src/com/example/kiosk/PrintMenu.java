@@ -1,16 +1,20 @@
 package com.example.kiosk;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public interface PrintMenu {
+
     default void printMenuItem(MenuItem menuItem){
         System.out.println(menuItem.getName() + " | W " + menuItem.getPrice() + " | " + menuItem.getDetails());
     }
 
     default void printMenuList(List<MenuItem> menuItems){
-        for(int i = 0; i<menuItems.size();i++){
-            System.out.print((i+1) + ". ");
-            printMenuItem(menuItems.get(i));
+        AtomicInteger counter = new AtomicInteger(1);
+        menuItems.stream()
+                .forEach(item -> {
+                    System.out.print(counter.getAndIncrement()+". ");
+                    printMenuItem(item);
+                });
         }
-    }
 }
