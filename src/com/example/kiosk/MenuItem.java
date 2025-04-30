@@ -1,3 +1,8 @@
+/**
+ * 메뉴 아이템 클래스
+ * 메뉴 이름, 가격, 상세정보 변수, getter
+ */
+
 package com.example.kiosk;
 
 public class MenuItem {

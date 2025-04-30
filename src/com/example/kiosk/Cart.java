@@ -1,11 +1,13 @@
+/**
+ * 장바구니
+ * 장바구니 아이템을 리스트로 관리
+ * 아이템 출력, 삭제, 총 가격 계산
+ */
 package com.example.kiosk;
 import java.util.*;
 
-public class Cart implements PrintMenu{
+public class Cart{
     private List<MenuItem> cartItems = new ArrayList<>();
-
-    public Cart(){
-    }
 
     public void addCart(MenuItem menuItem){
         cartItems.add(menuItem);

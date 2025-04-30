@@ -1,3 +1,8 @@
+/**
+ * 유형별 할인율 관리
+ * 할인율과 한글 label을 반환하는 getter
+ */
+
 package com.example.kiosk;
 
 public enum DiscountRate {
