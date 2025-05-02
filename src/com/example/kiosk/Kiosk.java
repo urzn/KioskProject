@@ -6,8 +6,9 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicInteger;
 
-public class Kiosk implements PrintMenu{
+public class Kiosk{
     private final DiscountRate[] discountRates = DiscountRate.values();
     private List<Menu> menuList;
     public Kiosk(List<Menu> menuList){
@@ -207,6 +208,27 @@ public class Kiosk implements PrintMenu{
             scanner.nextLine();
             return -1;
         }
+    }
+
+    /** 메뉴아이템 하나를
+     * "SmokeShack | W 8.9 | 베이컨, 체리 페퍼에 쉑소스가 토핑된 치즈버거"
+     * 형식으로 출력
+     */
+    private void printMenuItem(MenuItem menuItem){
+        System.out.println(menuItem.getName() + " | W " + menuItem.getPrice() + " | " + menuItem.getDetails());
+    }
+
+    /**
+     * 메뉴아이템 리스트를 같은 형식으로 출력
+     */
+
+    private void printMenuList(List<MenuItem> menuItems){
+        AtomicInteger counter = new AtomicInteger(1);
+        menuItems.stream()
+                .forEach(item -> {
+                    System.out.print(counter.getAndIncrement()+". ");
+                    printMenuItem(item);
+                });
     }
 }
 
